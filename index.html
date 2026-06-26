@@ -118,6 +118,26 @@
       border-color: var(--line-strong);
     }
 
+    .nav-links a.shop-nav,
+    .pill-link.shop-cta,
+    .small-action.shop-button {
+      color: #111827;
+      background: var(--accent);
+      border-color: transparent;
+      font-weight: 900;
+    }
+
+    .nav-links a.shop-nav:hover,
+    .nav-links a.shop-nav:focus-visible,
+    .pill-link.shop-cta:hover,
+    .pill-link.shop-cta:focus-visible,
+    .small-action.shop-button:hover,
+    .small-action.shop-button:focus-visible {
+      color: #111827;
+      background: #fde047;
+      border-color: transparent;
+    }
+
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
@@ -578,7 +598,7 @@
         <a href="index.html">Home</a>
         <a href="#live-cities">Live Cities</a>
         <a href="all-world-time-zones.html">Time Zones</a>
-        <a href="travel-gadgets.html">Shop</a>
+        <a class="shop-nav" href="travel-gadgets.html">🛒 Shop</a>
         <a href="#whoami">WhoAmI / Discover Me</a>
         <a href="about.html">About</a>
       </div>
@@ -596,7 +616,7 @@
         <div class="hero-actions">
           <a class="pill-link primary" href="#live-cities">Watch live cities</a>
           <a class="pill-link" href="all-world-time-zones.html">Every world time</a>
-          <a class="pill-link" href="travel-gadgets.html">Travel shop</a>
+          <a class="pill-link shop-cta" href="travel-gadgets.html">🛒 Shop</a>
         </div>
       </div>
 
@@ -633,6 +653,7 @@
           <div id="homeClock" class="city-clock">--:--:--</div>
           <div class="video-actions">
             <a id="homeOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
+            <a class="small-action shop-button" href="travel-gadgets.html">🛒 Shop</a>
             <button class="small-action" type="button" data-fullscreen="homeVideoCard">⛶ Fullscreen panel</button>
           </div>
         </div>
@@ -647,20 +668,33 @@
           <div id="roamingClock" class="city-clock">--:--:--</div>
           <div class="video-actions">
             <a id="roamingOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
+            <a class="small-action shop-button" href="travel-gadgets.html">🛒 Shop</a>
             <button class="small-action" type="button" data-fullscreen="roamingVideoCard">⛶ Fullscreen panel</button>
           </div>
         </div>
       </article>
     </section>
 
-    <section class="control-strip" aria-label="Rotation controls">
+    <section class="control-strip" aria-label="First city rotation controls">
       <div class="rotate-controls">
-        <span class="rotate-label">Rotate views every</span>
-        <button class="rotate-button active" type="button" data-rotate="0">Static</button>
-        <button class="rotate-button" type="button" data-rotate="180000">3 min</button>
-        <button class="rotate-button" type="button" data-rotate="300000">5 min</button>
-        <button class="rotate-button" type="button" data-rotate="600000">10 min</button>
-        <button class="rotate-button" type="button" id="nextCity">↻ Next city</button>
+        <span class="rotate-label">First stream rotates every</span>
+        <button class="rotate-button active" type="button" data-home-rotate="0">Static</button>
+        <button class="rotate-button" type="button" data-home-rotate="180000">3 min</button>
+        <button class="rotate-button" type="button" data-home-rotate="300000">5 min</button>
+        <button class="rotate-button" type="button" data-home-rotate="600000">10 min</button>
+        <button class="rotate-button" type="button" id="nextHomeCity">↻ Next first city</button>
+      </div>
+      <div class="control-note">The first window can now stay local, move manually, or rotate like the second window.</div>
+    </section>
+
+    <section class="control-strip" aria-label="Second city rotation controls">
+      <div class="rotate-controls">
+        <span class="rotate-label">Second stream rotates every</span>
+        <button class="rotate-button active" type="button" data-roaming-rotate="0">Static</button>
+        <button class="rotate-button" type="button" data-roaming-rotate="180000">3 min</button>
+        <button class="rotate-button" type="button" data-roaming-rotate="300000">5 min</button>
+        <button class="rotate-button" type="button" data-roaming-rotate="600000">10 min</button>
+        <button class="rotate-button" type="button" id="nextRoamingCity">↻ Next second city</button>
       </div>
       <div class="control-note">No custom sound button: use the normal YouTube controls inside each video.</div>
     </section>
@@ -688,555 +722,4 @@
       <h2>Coming later: chat or post comments with WhoAmI / Discover Me</h2>
       <div>
         A future version could let visitors register or log in with a WhoAmI identity, then comment on
-        favourite city views without putting personal details on the public page.
-      </div>
-      <div class="hero-actions">
-        <a class="pill-link" href="#whoami">Register / Login idea</a>
-      </div>
-    </section>
-
-    <footer>
-      All times are local to each city. Streams are embedded where providers allow it, and each view includes an original-stream link.
-    </footer>
-  </main>
-
-  <noscript>
-    <div style="padding:20px;color:white;background:#0f172a;text-align:center">
-      JavaScript must be enabled to display the live clocks and rotate city views.
-    </div>
-  </noscript>
-
-  <script>
-    "use strict";
-
-    const cityViews = [
-      {
-        id: "london-abbey-road",
-        city: "London",
-        country: "United Kingdom",
-        place: "Abbey Road Crossing",
-        timeZone: "Europe/London",
-        videoId: "M3EYAY2MftI",
-        sourceName: "EarthCam / YouTube",
-        note: "A famous London crossing with real street movement and a clear city feel."
-      },
-      {
-        id: "new-york-times-square",
-        city: "New York",
-        country: "United States",
-        place: "Times Square Crossroads",
-        timeZone: "America/New_York",
-        videoId: "z-jYdOIKcTQ",
-        sourceName: "EarthCam / YouTube",
-        note: "Bright lights, crowds and traffic in Manhattan."
-      },
-      {
-        id: "tokyo-shibuya",
-        city: "Tokyo",
-        country: "Japan",
-        place: "Shibuya Scramble Crossing",
-        timeZone: "Asia/Tokyo",
-        videoId: "8H3nRCFVR6Y",
-        sourceName: "ANNnewsCH / YouTube",
-        note: "One of the world’s busiest pedestrian crossings."
-      },
-      {
-        id: "venice-rialto",
-        city: "Venice",
-        country: "Italy",
-        place: "Rialto Bridge & Grand Canal",
-        timeZone: "Europe/Rome",
-        videoId: "Kmf_wiTFuXY",
-        sourceName: "YouTube live cam",
-        note: "Historic city movement on the Grand Canal."
-      },
-      {
-        id: "dublin-temple-bar",
-        city: "Dublin",
-        country: "Ireland",
-        place: "Temple Bar city view",
-        timeZone: "Europe/Dublin",
-        videoId: "3nyPER2kzqk",
-        sourceName: "EarthCam / YouTube",
-        note: "A central Dublin view with city streets and people."
-      },
-      {
-        id: "amsterdam-dam",
-        city: "Amsterdam",
-        country: "Netherlands",
-        place: "Dam Square / De Dam",
-        timeZone: "Europe/Amsterdam",
-        videoId: "Gd9d4q6WvUY",
-        sourceName: "WebCam.NL / YouTube",
-        note: "A central Amsterdam view with city movement."
-      },
-      {
-        id: "prague-old-town",
-        city: "Prague",
-        country: "Czech Republic",
-        place: "Old Town city view",
-        timeZone: "Europe/Prague",
-        videoId: "0FvTdT3EJY4",
-        sourceName: "SkylineWebcams / YouTube",
-        note: "A classic European city square and skyline feel."
-      },
-      {
-        id: "dubai-marina",
-        city: "Dubai",
-        country: "United Arab Emirates",
-        place: "Dubai Marina",
-        timeZone: "Asia/Dubai",
-        videoId: "ka9MsehA8I4",
-        sourceName: "SkylineWebcams / YouTube",
-        note: "A modern skyline and waterfront city view."
-      },
-      {
-        id: "bangkok-sathorn",
-        city: "Bangkok",
-        country: "Thailand",
-        place: "Sathorn Road / Silom",
-        timeZone: "Asia/Bangkok",
-        videoId: "-JGV2f3cE7Q",
-        sourceName: "YouTube live stream",
-        note: "Traffic and city life from central Bangkok."
-      },
-      {
-        id: "singapore-downtown",
-        city: "Singapore",
-        country: "Singapore",
-        place: "Downtown Singapore",
-        timeZone: "Asia/Singapore",
-        videoId: "9cfkyMzanbc",
-        sourceName: "YouTube live camera",
-        note: "A 24/7 downtown Singapore city camera."
-      },
-      {
-        id: "sydney-harbour",
-        city: "Sydney",
-        country: "Australia",
-        place: "Sydney Harbour",
-        timeZone: "Australia/Sydney",
-        videoId: "5uZa3-RMFos",
-        sourceName: "WebcamSydney / YouTube",
-        note: "Harbour, skyline and city movement from Sydney."
-      },
-      {
-        id: "seoul-station",
-        city: "Seoul",
-        country: "South Korea",
-        place: "Seoul Station Plaza",
-        timeZone: "Asia/Seoul",
-        videoId: "DSgn-lTHJzM",
-        sourceName: "GiGAeyes / YouTube",
-        note: "A busy public square and transport hub in Seoul."
-      },
-      {
-        id: "new-york-wtc",
-        city: "New York",
-        country: "United States",
-        place: "World Trade Center skyline",
-        timeZone: "America/New_York",
-        videoId: "5C9oM7C2Q9k",
-        sourceName: "EarthCam / YouTube",
-        note: "A skyline alternative for the New York time zone."
-      },
-      {
-        id: "amsterdam-centraal",
-        city: "Amsterdam",
-        country: "Netherlands",
-        place: "Amsterdam Centraal / bridges",
-        timeZone: "Europe/Amsterdam",
-        videoId: "FHJH2yMe6Hw",
-        sourceName: "ProRail / YouTube",
-        note: "A city transport view near Amsterdam Centraal."
-      },
-      {
-        id: "sydney-panning",
-        city: "Sydney",
-        country: "Australia",
-        place: "Sydney Harbour panning view",
-        timeZone: "Australia/Sydney",
-        videoId: "jshwkG1ZpP8",
-        sourceName: "WebcamSydney / YouTube",
-        note: "A wider panning harbour and city view."
-      },
-      {
-        id: "seoul-hangang",
-        city: "Seoul",
-        country: "South Korea",
-        place: "Han River / Banpo Bridge",
-        timeZone: "Asia/Seoul",
-        videoId: "RVvYQghFCXk",
-        sourceName: "YouTube live cam",
-        note: "River, bridge and city skyline from Seoul."
-      }
-    ];
-
-    const state = {
-      use12Hour: localStorage.getItem("cityClock12Hour") === "true",
-      sortMode: "offset",
-      query: "",
-      homeIndex: 0,
-      roamingIndex: 1,
-      rotateMs: 0,
-      rotateTimer: null
-    };
-
-    const elements = {
-      localTime: document.getElementById("localTime"),
-      localDate: document.getElementById("localDate"),
-      localZone: document.getElementById("localZone"),
-      homeFrameWrap: document.getElementById("homeFrameWrap"),
-      roamingFrameWrap: document.getElementById("roamingFrameWrap"),
-      homeTitle: document.getElementById("homeTitle"),
-      homeMeta: document.getElementById("homeMeta"),
-      homeClock: document.getElementById("homeClock"),
-      homeOpen: document.getElementById("homeOpen"),
-      roamingTitle: document.getElementById("roamingTitle"),
-      roamingMeta: document.getElementById("roamingMeta"),
-      roamingClock: document.getElementById("roamingClock"),
-      roamingOpen: document.getElementById("roamingOpen"),
-      cityGrid: document.getElementById("cityGrid"),
-      emptyState: document.getElementById("emptyState"),
-      searchInput: document.getElementById("searchInput"),
-      formatButton: document.getElementById("formatButton"),
-      sortButton: document.getElementById("sortButton"),
-      nextCity: document.getElementById("nextCity")
-    };
-
-    function youtubeWatchUrl(view) {
-      return `https://www.youtube.com/watch?v=${view.videoId}`;
-    }
-
-    function youtubeEmbedUrl(view) {
-      const params = new URLSearchParams({
-        autoplay: "0",
-        controls: "1",
-        modestbranding: "1",
-        rel: "0",
-        playsinline: "1"
-      });
-      return `https://www.youtube-nocookie.com/embed/${view.videoId}?${params.toString()}`;
-    }
-
-    function makeIframe(view, label) {
-      const iframe = document.createElement("iframe");
-      iframe.title = `${view.city} live view - ${view.place} (${label})`;
-      iframe.src = youtubeEmbedUrl(view);
-      iframe.loading = "lazy";
-      iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      iframe.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.allowFullscreen = true;
-      return iframe;
-    }
-
-    function safeTimeZone() {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone || "Etc/UTC";
-    }
-
-    function formatInZone(timeZone, options) {
-      return new Intl.DateTimeFormat("en-GB", {
-        timeZone,
-        ...options
-      }).format(new Date());
-    }
-
-    function getOffsetMinutes(date, timeZone) {
-      const safeDate = new Date(Math.floor(date.getTime() / 1000) * 1000);
-      const parts = new Intl.DateTimeFormat("en-GB", {
-        timeZone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hourCycle: "h23"
-      }).formatToParts(safeDate);
-
-      const values = {};
-      parts.forEach(part => {
-        if (part.type !== "literal") values[part.type] = part.value;
-      });
-
-      const timeAsUTC = Date.UTC(
-        Number(values.year),
-        Number(values.month) - 1,
-        Number(values.day),
-        Number(values.hour),
-        Number(values.minute),
-        Number(values.second)
-      );
-
-      return Math.round((timeAsUTC - safeDate.getTime()) / 60000);
-    }
-
-    function offsetLabel(totalMinutes) {
-      if (totalMinutes === 0) return "UTC+0";
-      const sign = totalMinutes >= 0 ? "+" : "−";
-      const absolute = Math.abs(totalMinutes);
-      const hours = Math.floor(absolute / 60);
-      const minutes = absolute % 60;
-      return `UTC${sign}${hours}${minutes ? `:${String(minutes).padStart(2, "0")}` : ""}`;
-    }
-
-    function normaliseOffsetForSearch(totalMinutes) {
-      return offsetLabel(totalMinutes).replace("−", "-").toLowerCase();
-    }
-
-    function hourInZone(timeZone) {
-      const hourText = formatInZone(timeZone, { hour: "2-digit", hourCycle: "h23" });
-      return Number(hourText);
-    }
-
-    function isDaytime(timeZone) {
-      const hour = hourInZone(timeZone);
-      return hour >= 6 && hour < 19;
-    }
-
-    function cityTime(view) {
-      return formatInZone(view.timeZone, {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: state.use12Hour
-      });
-    }
-
-    function cityDate(view) {
-      return formatInZone(view.timeZone, {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      });
-    }
-
-    function decorateViews() {
-      const now = new Date();
-      cityViews.forEach(view => {
-        view.offset = getOffsetMinutes(now, view.timeZone);
-        view.offsetText = offsetLabel(view.offset);
-        view.searchText = [
-          view.city,
-          view.country,
-          view.place,
-          view.timeZone,
-          view.offsetText,
-          normaliseOffsetForSearch(view.offset),
-          view.note,
-          view.sourceName
-        ].join(" ").toLowerCase();
-      });
-    }
-
-    function findNearestCityIndex() {
-      const now = new Date();
-      const localZone = safeTimeZone();
-      let localOffset = 0;
-
-      try {
-        localOffset = getOffsetMinutes(now, localZone);
-      } catch (error) {
-        localOffset = -new Date().getTimezoneOffset();
-      }
-
-      let bestIndex = 0;
-      let bestDistance = Infinity;
-      cityViews.forEach((view, index) => {
-        const distance = Math.abs(view.offset - localOffset);
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          bestIndex = index;
-        }
-      });
-
-      return bestIndex;
-    }
-
-    function setVideo(which, index) {
-      const view = cityViews[index];
-      const isHome = which === "home";
-      const frameWrap = isHome ? elements.homeFrameWrap : elements.roamingFrameWrap;
-      const title = isHome ? elements.homeTitle : elements.roamingTitle;
-      const meta = isHome ? elements.homeMeta : elements.roamingMeta;
-      const open = isHome ? elements.homeOpen : elements.roamingOpen;
-
-      frameWrap.textContent = "";
-      frameWrap.appendChild(makeIframe(view, isHome ? "closest to you" : "roaming"));
-      title.textContent = `${view.city} — ${view.place}`;
-      meta.textContent = `${view.country} · ${view.offsetText} · ${view.sourceName}`;
-      open.href = youtubeWatchUrl(view);
-
-      if (isHome) state.homeIndex = index;
-      else state.roamingIndex = index;
-
-      renderCards();
-      updateClocks();
-    }
-
-    function updateClocks() {
-      const localZone = safeTimeZone();
-      elements.localTime.textContent = formatInZone(localZone, {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: state.use12Hour
-      });
-      elements.localDate.textContent = formatInZone(localZone, {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      });
-      elements.localZone.textContent = localZone;
-
-      const homeView = cityViews[state.homeIndex];
-      const roamingView = cityViews[state.roamingIndex];
-      elements.homeClock.textContent = cityTime(homeView);
-      elements.roamingClock.textContent = cityTime(roamingView);
-
-      document.querySelectorAll("[data-card-clock]").forEach(clock => {
-        const index = Number(clock.dataset.index);
-        clock.textContent = cityTime(cityViews[index]);
-      });
-      document.querySelectorAll("[data-card-date]").forEach(date => {
-        const index = Number(date.dataset.index);
-        date.textContent = cityDate(cityViews[index]);
-      });
-      document.querySelectorAll("[data-day-night]").forEach(tag => {
-        const index = Number(tag.dataset.index);
-        tag.textContent = isDaytime(cityViews[index].timeZone) ? "Day" : "Night";
-      });
-    }
-
-    function orderedCityIndexes() {
-      return cityViews
-        .map((view, index) => ({ view, index }))
-        .sort((a, b) => {
-          if (state.sortMode === "day") {
-            const dayA = isDaytime(a.view.timeZone) ? 0 : 1;
-            const dayB = isDaytime(b.view.timeZone) ? 0 : 1;
-            if (dayA !== dayB) return dayA - dayB;
-          }
-          return a.view.offset - b.view.offset || a.view.city.localeCompare(b.view.city);
-        })
-        .map(item => item.index);
-    }
-
-    function renderCards() {
-      const query = state.query.trim().toLowerCase().replace("−", "-");
-      elements.cityGrid.textContent = "";
-      let visible = 0;
-
-      orderedCityIndexes().forEach(index => {
-        const view = cityViews[index];
-        if (query && !view.searchText.includes(query)) return;
-
-        visible += 1;
-        const card = document.createElement("article");
-        card.className = "city-card";
-        if (index === state.roamingIndex) card.classList.add("active");
-        card.tabIndex = 0;
-        card.setAttribute("role", "button");
-        card.setAttribute("aria-label", `Show ${view.city} ${view.place} in the roaming window`);
-        card.innerHTML = `
-          <div class="card-row">
-            <span class="card-offset">${view.offsetText}</span>
-            <span class="tag" data-day-night data-index="${index}">${isDaytime(view.timeZone) ? "Day" : "Night"}</span>
-          </div>
-          <div class="card-clock" data-card-clock data-index="${index}">--:--:--</div>
-          <div class="card-subtitle" data-card-date data-index="${index}">Loading date…</div>
-          <div class="card-title">${view.city}</div>
-          <div class="card-subtitle">${view.place}</div>
-          <div class="card-note">${view.note}</div>
-        `;
-        card.addEventListener("click", () => setVideo("roaming", index));
-        card.addEventListener("keydown", event => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setVideo("roaming", index);
-          }
-        });
-        elements.cityGrid.appendChild(card);
-      });
-
-      elements.emptyState.style.display = visible === 0 ? "block" : "none";
-    }
-
-    function nextRoamingCity() {
-      const nextIndex = (state.roamingIndex + 1) % cityViews.length;
-      setVideo("roaming", nextIndex);
-    }
-
-    function setRotation(ms) {
-      state.rotateMs = ms;
-      if (state.rotateTimer) window.clearInterval(state.rotateTimer);
-      state.rotateTimer = null;
-
-      if (ms > 0) {
-        state.rotateTimer = window.setInterval(nextRoamingCity, ms);
-      }
-
-      document.querySelectorAll("[data-rotate]").forEach(button => {
-        button.classList.toggle("active", Number(button.dataset.rotate) === ms);
-      });
-    }
-
-    function updateControlLabels() {
-      elements.formatButton.textContent = state.use12Hour ? "Use 24-hour time" : "Use 12-hour time";
-      elements.formatButton.setAttribute("aria-pressed", String(state.use12Hour));
-      elements.sortButton.textContent = state.sortMode === "offset" ? "Sort by: Day / night" : "Sort by: UTC offset";
-    }
-
-    elements.searchInput.addEventListener("input", event => {
-      state.query = event.target.value;
-      renderCards();
-      updateClocks();
-    });
-
-    elements.formatButton.addEventListener("click", () => {
-      state.use12Hour = !state.use12Hour;
-      localStorage.setItem("cityClock12Hour", String(state.use12Hour));
-      updateControlLabels();
-      updateClocks();
-    });
-
-    elements.sortButton.addEventListener("click", () => {
-      state.sortMode = state.sortMode === "offset" ? "day" : "offset";
-      updateControlLabels();
-      renderCards();
-      updateClocks();
-    });
-
-    document.querySelectorAll("[data-rotate]").forEach(button => {
-      button.addEventListener("click", () => setRotation(Number(button.dataset.rotate)));
-    });
-
-    elements.nextCity.addEventListener("click", nextRoamingCity);
-
-    document.querySelectorAll("[data-fullscreen]").forEach(button => {
-      button.addEventListener("click", () => {
-        const target = document.getElementById(button.dataset.fullscreen);
-        if (target && target.requestFullscreen) target.requestFullscreen();
-      });
-    });
-
-    try {
-      decorateViews();
-      state.homeIndex = findNearestCityIndex();
-      state.roamingIndex = state.homeIndex === 0 ? 1 : 0;
-      updateControlLabels();
-      setVideo("home", state.homeIndex);
-      setVideo("roaming", state.roamingIndex);
-      renderCards();
-      updateClocks();
-      window.setInterval(updateClocks, 1000);
-      window.setInterval(decorateViews, 15 * 60 * 1000);
-    } catch (error) {
-      console.error(error);
-      elements.localZone.textContent = "The city clocks could not be created in this browser.";
-    }
-  </script>
-</body>
-</html>
+        favourite
