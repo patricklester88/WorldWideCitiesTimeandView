@@ -381,7 +381,10 @@
       justify-content: space-between;
       gap: 12px;
       padding: 13px;
-      margin-top: 14px;
+      margin: 0 18px 18px;
+      border-radius: 18px;
+      box-shadow: none;
+      background: rgba(255, 255, 255, 0.075);
     }
 
     .rotate-controls {
@@ -404,10 +407,6 @@
       font-weight: 900;
     }
 
-    .control-note {
-      color: var(--muted-2);
-      font-size: 0.92rem;
-    }
 
     .tools {
       display: grid;
@@ -657,6 +656,16 @@
             <button class="small-action" type="button" data-fullscreen="homeVideoCard">⛶ Fullscreen panel</button>
           </div>
         </div>
+        <section class="control-strip" aria-label="First city rotation controls">
+          <div class="rotate-controls">
+            <span class="rotate-label">Rotation</span>
+            <button class="rotate-button active" type="button" data-home-rotate="0">Static</button>
+            <button class="rotate-button" type="button" data-home-rotate="180000">3 min</button>
+            <button class="rotate-button" type="button" data-home-rotate="300000">5 min</button>
+            <button class="rotate-button" type="button" data-home-rotate="600000">10 min</button>
+            <button class="rotate-button" type="button" id="nextHomeCity">↻ Next</button>
+          </div>
+        </section>
       </article>
 
       <article class="video-card" id="roamingVideoCard">
@@ -672,31 +681,17 @@
             <button class="small-action" type="button" data-fullscreen="roamingVideoCard">⛶ Fullscreen panel</button>
           </div>
         </div>
+        <section class="control-strip" aria-label="Second city rotation controls">
+          <div class="rotate-controls">
+            <span class="rotate-label">Rotation</span>
+            <button class="rotate-button active" type="button" data-roaming-rotate="0">Static</button>
+            <button class="rotate-button" type="button" data-roaming-rotate="180000">3 min</button>
+            <button class="rotate-button" type="button" data-roaming-rotate="300000">5 min</button>
+            <button class="rotate-button" type="button" data-roaming-rotate="600000">10 min</button>
+            <button class="rotate-button" type="button" id="nextRoamingCity">↻ Next</button>
+          </div>
+        </section>
       </article>
-    </section>
-
-    <section class="control-strip" aria-label="First city rotation controls">
-      <div class="rotate-controls">
-        <span class="rotate-label">First stream rotates every</span>
-        <button class="rotate-button active" type="button" data-home-rotate="0">Static</button>
-        <button class="rotate-button" type="button" data-home-rotate="180000">3 min</button>
-        <button class="rotate-button" type="button" data-home-rotate="300000">5 min</button>
-        <button class="rotate-button" type="button" data-home-rotate="600000">10 min</button>
-        <button class="rotate-button" type="button" id="nextHomeCity">↻ Next first city</button>
-      </div>
-      <div class="control-note">The first window can now stay local, move manually, or rotate like the second window.</div>
-    </section>
-
-    <section class="control-strip" aria-label="Second city rotation controls">
-      <div class="rotate-controls">
-        <span class="rotate-label">Second stream rotates every</span>
-        <button class="rotate-button active" type="button" data-roaming-rotate="0">Static</button>
-        <button class="rotate-button" type="button" data-roaming-rotate="180000">3 min</button>
-        <button class="rotate-button" type="button" data-roaming-rotate="300000">5 min</button>
-        <button class="rotate-button" type="button" data-roaming-rotate="600000">10 min</button>
-        <button class="rotate-button" type="button" id="nextRoamingCity">↻ Next second city</button>
-      </div>
-      <div class="control-note">No custom sound button: use the normal YouTube controls inside each video.</div>
     </section>
 
     <section class="section-head" aria-labelledby="allCitiesTitle">
