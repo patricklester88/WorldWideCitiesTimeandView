@@ -231,7 +231,7 @@
       min-height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
     .local-label {
@@ -255,8 +255,8 @@
     }
 
     .local-zone {
-      margin-top: 20px;
-      padding-top: 18px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid var(--line);
       color: var(--muted-2);
       line-height: 1.45;
@@ -370,7 +370,7 @@
       color: var(--blue);
       background: rgba(141, 216, 255, 0.10);
       font-size: 0.9rem;
-      font-weight: 900;
+      font-weight: 400;
       line-height: 1.2;
     }
 
@@ -740,8 +740,7 @@
         <p class="eyebrow">Live city time zone sister site</p>
         <h1 id="mainTitle">Two cities.<br>Different times.<br>One World.</h1>
         <p class="intro">
-          A city version of the world clock idea. One view stays close to your own time zone,
-          while the other wanders around streets, squares, skylines and crossings around the planet.
+          A city version of the world clock idea, with streets, squares, skylines and crossings around the planet.
         </p>
         <div class="quote">❝Today’s thought: “A city is just a clock with traffic lights.”</div>
         <div class="hero-actions">
@@ -1123,7 +1122,8 @@
 
     function youtubeEmbedUrl(view) {
       const params = new URLSearchParams({
-        autoplay: "0",
+        autoplay: "1",
+        mute: "1",
         controls: "1",
         modestbranding: "1",
         rel: "0",
@@ -1138,7 +1138,7 @@
       iframe.src = youtubeEmbedUrl(view);
       iframe.loading = "lazy";
       iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      iframe.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allow = "autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       iframe.allowFullscreen = true;
       return iframe;
     }
