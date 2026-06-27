@@ -346,12 +346,32 @@
       line-height: 1.45;
     }
 
-    .city-clock {
+    .city-time-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
       margin-top: 14px;
+    }
+
+    .city-clock {
       font-size: clamp(1.9rem, 4vw, 2.9rem);
       font-weight: 900;
       letter-spacing: -0.05em;
       font-variant-numeric: tabular-nums;
+    }
+
+    .time-difference {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(141, 216, 255, 0.30);
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: var(--blue);
+      background: rgba(141, 216, 255, 0.10);
+      font-size: 0.9rem;
+      font-weight: 900;
+      line-height: 1.2;
     }
 
     .video-actions {
@@ -636,8 +656,7 @@
       <div>
         <h2>Two live city windows</h2>
         <p>
-          Day and night. Different places. Same planet. The place names, times and buttons are kept
-          outside the YouTube screen so they do not cover volume, skip advert, fullscreen or playback controls.
+          Day and night. Different places. Same planet.
         </p>
       </div>
     </section>
@@ -649,7 +668,10 @@
           <div class="video-kicker"><span class="tag">Closest to you</span></div>
           <h2 id="homeTitle" class="city-title">Loading city…</h2>
           <div id="homeMeta" class="city-meta">Finding a nearby time zone view…</div>
-          <div id="homeClock" class="city-clock">--:--:--</div>
+          <div class="city-time-row">
+            <div id="homeClock" class="city-clock">--:--:--</div>
+            <span id="homeDifference" class="time-difference">Calculating…</span>
+          </div>
           <div class="video-actions">
             <a id="homeOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
             <a class="small-action shop-button" href="travel-gadgets.html">🛒 Shop</a>
@@ -674,7 +696,10 @@
           <div class="video-kicker"><span class="tag">Roaming city</span></div>
           <h2 id="roamingTitle" class="city-title">Loading city…</h2>
           <div id="roamingMeta" class="city-meta">Click a city below, or let it rotate.</div>
-          <div id="roamingClock" class="city-clock">--:--:--</div>
+          <div class="city-time-row">
+            <div id="roamingClock" class="city-clock">--:--:--</div>
+            <span id="roamingDifference" class="time-difference">Calculating…</span>
+          </div>
           <div class="video-actions">
             <a id="roamingOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
             <a class="small-action shop-button" href="travel-gadgets.html">🛒 Shop</a>
@@ -922,10 +947,12 @@
       homeTitle: document.getElementById("homeTitle"),
       homeMeta: document.getElementById("homeMeta"),
       homeClock: document.getElementById("homeClock"),
+      homeDifference: document.getElementById("homeDifference"),
       homeOpen: document.getElementById("homeOpen"),
       roamingTitle: document.getElementById("roamingTitle"),
       roamingMeta: document.getElementById("roamingMeta"),
       roamingClock: document.getElementById("roamingClock"),
+      roamingDifference: document.getElementById("roamingDifference"),
       roamingOpen: document.getElementById("roamingOpen"),
       cityGrid: document.getElementById("cityGrid"),
       emptyState: document.getElementById("emptyState"),
@@ -1044,6 +1071,34 @@
       });
     }
 
+    function timeDifferenceFromUser(view) {
+      const now = new Date();
+      const localZone = safeTimeZone();
+      let localOffset = 0;
+
+      try {
+        localOffset = getOffsetMinutes(now, localZone);
+      } catch (error) {
+        localOffset = -new Date().getTimezoneOffset();
+      }
+
+      const difference = view.offset - localOffset;
+      if (difference === 0) return "same time as you";
+
+      const absolute = Math.abs(difference);
+      const hours = Math.floor(absolute / 60);
+      const minutes = absolute % 60;
+      const hourText = hours === 1 ? "1 hour" : `${hours} hours`;
+      const minuteText = minutes === 1 ? "1 minute" : `${minutes} minutes`;
+      const amount = minutes === 0
+        ? hourText
+        : hours === 0
+          ? minuteText
+          : `${hourText} ${minuteText}`;
+
+      return difference > 0 ? `${amount} ahead of you` : `${amount} behind you`;
+    }
+
     function decorateViews() {
       const now = new Date();
       cityViews.forEach(view => {
@@ -1126,7 +1181,9 @@
       const homeView = cityViews[state.homeIndex];
       const roamingView = cityViews[state.roamingIndex];
       elements.homeClock.textContent = cityTime(homeView);
+      elements.homeDifference.textContent = timeDifferenceFromUser(homeView);
       elements.roamingClock.textContent = cityTime(roamingView);
+      elements.roamingDifference.textContent = timeDifferenceFromUser(roamingView);
 
       document.querySelectorAll("[data-card-clock]").forEach(clock => {
         const index = Number(clock.dataset.index);
