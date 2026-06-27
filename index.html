@@ -394,6 +394,36 @@
       border-color: transparent;
     }
 
+
+    .viewer-status {
+      flex: 1 1 100%;
+      display: grid;
+      gap: 5px;
+      padding: 11px 12px;
+      border: 1px solid rgba(141, 216, 255, 0.24);
+      border-radius: 15px;
+      color: var(--muted);
+      background: rgba(141, 216, 255, 0.08);
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .viewer-status strong,
+    .viewer-status .status-highlight {
+      color: var(--text);
+    }
+
+    .viewer-status .chat-ids {
+      color: var(--blue);
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .viewer-status .status-note {
+      color: var(--muted-2);
+      font-size: 0.8rem;
+    }
+
     .action-wrap {
       flex: 1 1 260px;
       display: flex;
@@ -427,6 +457,28 @@
     }
 
     .action-panel[hidden] { display: none; }
+
+
+    .action-status-card {
+      padding: 10px 11px;
+      margin-bottom: 5px;
+      border: 1px solid rgba(141, 216, 255, 0.24);
+      border-radius: 13px;
+      color: var(--muted);
+      background: rgba(141, 216, 255, 0.08);
+      line-height: 1.35;
+    }
+
+    .action-status-card strong {
+      color: var(--text);
+    }
+
+    .action-status-card small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+    }
 
     .action-panel a {
       display: flex;
@@ -733,17 +785,24 @@
             <span id="homeDifference" class="time-difference">Calculating…</span>
           </div>
           <div class="video-actions">
-            <a id="homeOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
+            <div id="homeViewerStatus" class="viewer-status" aria-live="polite">
+              <div><strong>You:</strong> Checking login status…</div>
+              <div>Other users: checking…</div>
+            </div>
             <div class="action-wrap">
-              <button class="small-action action-button" type="button" data-action-toggle aria-expanded="false">⚡ Action</button>
+              <button class="small-action action-button" type="button" data-action-toggle aria-expanded="false">⚙️ Options</button>
               <div class="action-panel" hidden>
+                <div class="action-status-card">
+                  <strong>Viewer status</strong>
+                  <small id="homeOptionsStatus">Guest / online panel placeholder</small>
+                </div>
                 <a href="travel-gadgets.html"><span>🛒 Shop</span><span class="action-muted">Travel gadgets</span></a>
                 <a href="https://patricklester88.github.io/WorldWideNatureTimeandView/"><span>🌿 Exit to Nature</span><span class="action-muted">Worldwide streams</span></a>
                 <a href="https://patricklester88.github.io/WorldWideWildLifeTimeandView/"><span>🦁 Exit to Wildlife</span><span class="action-muted">Animal webcams</span></a>
                 <a href="all-world-time-zones.html"><span>🕒 World times</span><span class="action-muted">All UTC offsets</span></a>
                 <a href="#whoami"><span>🪪 WhoAmI / Discover Me</span><span class="action-muted">Login idea</span></a>
                 <a href="#whoami"><span>💬 Chat, comment or vote</span><span class="action-muted">Coming later</span></a>
-                <a href="#whoami"><span>👥 See who is online</span><span class="action-muted">Anonymous or logged in</span></a>
+                <a href="#whoami"><span>👥 Online / chat status</span><span class="action-muted">WhoAmI IDs when connected</span></a>
               </div>
             </div>
             <button class="small-action" type="button" data-fullscreen="homeVideoCard">⛶ Fullscreen panel</button>
@@ -772,17 +831,24 @@
             <span id="roamingDifference" class="time-difference">Calculating…</span>
           </div>
           <div class="video-actions">
-            <a id="roamingOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
+            <div id="roamingViewerStatus" class="viewer-status" aria-live="polite">
+              <div><strong>You:</strong> Checking login status…</div>
+              <div>Other users: checking…</div>
+            </div>
             <div class="action-wrap">
-              <button class="small-action action-button" type="button" data-action-toggle aria-expanded="false">⚡ Action</button>
+              <button class="small-action action-button" type="button" data-action-toggle aria-expanded="false">⚙️ Options</button>
               <div class="action-panel" hidden>
+                <div class="action-status-card">
+                  <strong>Viewer status</strong>
+                  <small id="roamingOptionsStatus">Guest / online panel placeholder</small>
+                </div>
                 <a href="travel-gadgets.html"><span>🛒 Shop</span><span class="action-muted">Travel gadgets</span></a>
                 <a href="https://patricklester88.github.io/WorldWideNatureTimeandView/"><span>🌿 Exit to Nature</span><span class="action-muted">Worldwide streams</span></a>
                 <a href="https://patricklester88.github.io/WorldWideWildLifeTimeandView/"><span>🦁 Exit to Wildlife</span><span class="action-muted">Animal webcams</span></a>
                 <a href="all-world-time-zones.html"><span>🕒 World times</span><span class="action-muted">All UTC offsets</span></a>
                 <a href="#whoami"><span>🪪 WhoAmI / Discover Me</span><span class="action-muted">Login idea</span></a>
                 <a href="#whoami"><span>💬 Chat, comment or vote</span><span class="action-muted">Coming later</span></a>
-                <a href="#whoami"><span>👥 See who is online</span><span class="action-muted">Anonymous or logged in</span></a>
+                <a href="#whoami"><span>👥 Online / chat status</span><span class="action-muted">WhoAmI IDs when connected</span></a>
               </div>
             </div>
             <button class="small-action" type="button" data-fullscreen="roamingVideoCard">⛶ Fullscreen panel</button>
@@ -821,11 +887,11 @@
     <div id="emptyState" class="empty-state">No city matched that search.</div>
 
     <section id="whoami" class="notice-card">
-      <h2>Action menu idea: WhoAmI / Discover Me</h2>
+      <h2>Options menu idea: WhoAmI / Discover Me</h2>
       <div>
-        The webcam action button can later connect visitors to shop links, related stream websites, anonymous
-        or logged-in WhoAmI / Discover Me profiles, chat, comments, simple voting, and a small “others online”
-        indicator without putting personal details on the public page.
+        The webcam options button can connect visitors to shop links, related stream websites, anonymous
+        or logged-in WhoAmI / Discover Me profiles, chat, comments, voting, and an “others online”
+        panel. For now the online panel is a front-end placeholder until a WhoAmI / Discover Me login system is connected.
       </div>
       <div class="hero-actions">
         <a class="pill-link" href="travel-gadgets.html">🛒 Shop</a>
@@ -834,7 +900,7 @@
     </section>
 
     <footer>
-      All times are local to each city. Streams are embedded where providers allow it, and each view includes an original-stream link.
+      All times are local to each city. Streams are embedded where providers allow it. The options panel can later connect to login, chat, comments and voting.
     </footer>
   </main>
 
@@ -1032,11 +1098,15 @@
       homeMeta: document.getElementById("homeMeta"),
       homeClock: document.getElementById("homeClock"),
       homeDifference: document.getElementById("homeDifference"),
+      homeViewerStatus: document.getElementById("homeViewerStatus"),
+      homeOptionsStatus: document.getElementById("homeOptionsStatus"),
       homeOpen: document.getElementById("homeOpen"),
       roamingTitle: document.getElementById("roamingTitle"),
       roamingMeta: document.getElementById("roamingMeta"),
       roamingClock: document.getElementById("roamingClock"),
       roamingDifference: document.getElementById("roamingDifference"),
+      roamingViewerStatus: document.getElementById("roamingViewerStatus"),
+      roamingOptionsStatus: document.getElementById("roamingOptionsStatus"),
       roamingOpen: document.getElementById("roamingOpen"),
       cityGrid: document.getElementById("cityGrid"),
       emptyState: document.getElementById("emptyState"),
@@ -1225,6 +1295,57 @@
       return bestIndex;
     }
 
+
+    function getGuestId() {
+      let guestId = localStorage.getItem("cityGuestWhoamiId");
+      if (!guestId) {
+        const randomPart = Math.floor(1000 + Math.random() * 9000);
+        guestId = `Guest-${randomPart}`;
+        localStorage.setItem("cityGuestWhoamiId", guestId);
+      }
+      return guestId;
+    }
+
+    function simpleSeed(text) {
+      return text.split("").reduce((total, character) => total + character.charCodeAt(0), 0);
+    }
+
+    function demoOnlineStatus(view) {
+      const seed = simpleSeed(view.id);
+      const otherUsers = (seed % 7) + 1;
+      const chatUsers = seed % 3;
+      const shortCity = view.city.replace(/[^A-Z]/gi, "").slice(0, 3).toUpperCase() || "WWW";
+      const ids = Array.from({ length: chatUsers }, (_, index) => {
+        const number = ((seed + index * 17) % 90) + 10;
+        return index % 2 === 0 ? `WhoAmI-${shortCity}${number}` : `DiscoverMe-${shortCity}${number}`;
+      });
+      return { otherUsers, chatUsers, ids };
+    }
+
+    function updateViewerStatus(which, view) {
+      const isHome = which === "home";
+      const statusElement = isHome ? elements.homeViewerStatus : elements.roamingViewerStatus;
+      const optionsStatusElement = isHome ? elements.homeOptionsStatus : elements.roamingOptionsStatus;
+      if (!statusElement) return;
+
+      const guestId = getGuestId();
+      const online = demoOnlineStatus(view);
+      const chatText = online.chatUsers > 0
+        ? `<span class="chat-ids">${online.ids.join(", ")}</span>`
+        : `<span class="status-highlight">No chat requests showing</span>`;
+
+      statusElement.innerHTML = `
+        <div><strong>You:</strong> <span class="status-highlight">${guestId}</span> · not logged in</div>
+        <div><strong>Others online here:</strong> <span class="status-highlight">${online.otherUsers}</span> demo viewer${online.otherUsers === 1 ? "" : "s"}</div>
+        <div><strong>Would like to chat:</strong> ${chatText}</div>
+        <div class="status-note">Placeholder until WhoAmI / Discover Me login and live user counting are connected.</div>
+      `;
+
+      if (optionsStatusElement) {
+        optionsStatusElement.textContent = `${guestId} · not logged in · ${online.otherUsers} demo online · ${online.chatUsers} demo chat request${online.chatUsers === 1 ? "" : "s"}`;
+      }
+    }
+
     function setVideo(which, index) {
       const view = cityViews[index];
       const isHome = which === "home";
@@ -1237,7 +1358,8 @@
       frameWrap.appendChild(makeIframe(view, isHome ? "closest to you" : "roaming"));
       title.textContent = `${view.city} — ${view.place}`;
       meta.textContent = `${view.country} · ${view.offsetText} · ${view.sourceName}`;
-      open.href = youtubeWatchUrl(view);
+      if (open) open.href = youtubeWatchUrl(view);
+      updateViewerStatus(which, view);
 
       if (isHome) state.homeIndex = index;
       else state.roamingIndex = index;
