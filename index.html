@@ -394,6 +394,66 @@
       border-color: transparent;
     }
 
+    .action-wrap {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: min(100%, 260px);
+    }
+
+    .action-button {
+      color: #111827;
+      background: var(--accent);
+      border-color: transparent;
+      font-weight: 900;
+    }
+
+    .action-button:hover,
+    .action-button:focus-visible {
+      color: #111827;
+      background: #fde047;
+      border-color: transparent;
+    }
+
+    .action-panel {
+      width: min(100%, 440px);
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(8, 17, 31, 0.92);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+    }
+
+    .action-panel[hidden] { display: none; }
+
+    .action-panel a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      line-height: 1.25;
+    }
+
+    .action-panel a:hover,
+    .action-panel a:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+
+    .action-panel .action-muted {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
     .control-strip {
       display: flex;
       flex-wrap: wrap;
@@ -674,7 +734,18 @@
           </div>
           <div class="video-actions">
             <a id="homeOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
-            <a class="small-action shop-button" href="travel-gadgets.html">🛒 Shop</a>
+            <div class="action-wrap">
+              <button class="small-action action-button" type="button" data-action-toggle aria-expanded="false">⚡ Action</button>
+              <div class="action-panel" hidden>
+                <a href="travel-gadgets.html"><span>🛒 Shop</span><span class="action-muted">Travel gadgets</span></a>
+                <a href="https://patricklester88.github.io/WorldWideNatureTimeandView/"><span>🌿 Exit to Nature</span><span class="action-muted">Worldwide streams</span></a>
+                <a href="https://patricklester88.github.io/WorldWideWildLifeTimeandView/"><span>🦁 Exit to Wildlife</span><span class="action-muted">Animal webcams</span></a>
+                <a href="all-world-time-zones.html"><span>🕒 World times</span><span class="action-muted">All UTC offsets</span></a>
+                <a href="#whoami"><span>🪪 WhoAmI / Discover Me</span><span class="action-muted">Login idea</span></a>
+                <a href="#whoami"><span>💬 Chat, comment or vote</span><span class="action-muted">Coming later</span></a>
+                <a href="#whoami"><span>👥 See who is online</span><span class="action-muted">Anonymous or logged in</span></a>
+              </div>
+            </div>
             <button class="small-action" type="button" data-fullscreen="homeVideoCard">⛶ Fullscreen panel</button>
           </div>
         </div>
@@ -702,7 +773,18 @@
           </div>
           <div class="video-actions">
             <a id="roamingOpen" class="small-action youtube" href="#" target="_blank" rel="noopener">Open original stream</a>
-            <a class="small-action shop-button" href="travel-gadgets.html">🛒 Shop</a>
+            <div class="action-wrap">
+              <button class="small-action action-button" type="button" data-action-toggle aria-expanded="false">⚡ Action</button>
+              <div class="action-panel" hidden>
+                <a href="travel-gadgets.html"><span>🛒 Shop</span><span class="action-muted">Travel gadgets</span></a>
+                <a href="https://patricklester88.github.io/WorldWideNatureTimeandView/"><span>🌿 Exit to Nature</span><span class="action-muted">Worldwide streams</span></a>
+                <a href="https://patricklester88.github.io/WorldWideWildLifeTimeandView/"><span>🦁 Exit to Wildlife</span><span class="action-muted">Animal webcams</span></a>
+                <a href="all-world-time-zones.html"><span>🕒 World times</span><span class="action-muted">All UTC offsets</span></a>
+                <a href="#whoami"><span>🪪 WhoAmI / Discover Me</span><span class="action-muted">Login idea</span></a>
+                <a href="#whoami"><span>💬 Chat, comment or vote</span><span class="action-muted">Coming later</span></a>
+                <a href="#whoami"><span>👥 See who is online</span><span class="action-muted">Anonymous or logged in</span></a>
+              </div>
+            </div>
             <button class="small-action" type="button" data-fullscreen="roamingVideoCard">⛶ Fullscreen panel</button>
           </div>
         </div>
@@ -739,13 +821,15 @@
     <div id="emptyState" class="empty-state">No city matched that search.</div>
 
     <section id="whoami" class="notice-card">
-      <h2>Coming later: chat or post comments with WhoAmI / Discover Me</h2>
+      <h2>Action menu idea: WhoAmI / Discover Me</h2>
       <div>
-        A future version could let visitors register or log in with a WhoAmI identity, then comment on
-        favourite city views without putting personal details on the public page.
+        The webcam action button can later connect visitors to shop links, related stream websites, anonymous
+        or logged-in WhoAmI / Discover Me profiles, chat, comments, simple voting, and a small “others online”
+        indicator without putting personal details on the public page.
       </div>
       <div class="hero-actions">
-        <a class="pill-link" href="#whoami">Register / Login idea</a>
+        <a class="pill-link" href="travel-gadgets.html">🛒 Shop</a>
+        <a class="pill-link" href="#whoami">WhoAmI / Discover Me login idea</a>
       </div>
     </section>
 
@@ -1326,6 +1410,40 @@
         const target = document.getElementById(button.dataset.fullscreen);
         if (target && target.requestFullscreen) target.requestFullscreen();
       });
+    });
+
+    function closeActionMenus(exceptWrap) {
+      document.querySelectorAll(".action-wrap").forEach(wrap => {
+        if (wrap === exceptWrap) return;
+        const button = wrap.querySelector("[data-action-toggle]");
+        const panel = wrap.querySelector(".action-panel");
+        wrap.classList.remove("open");
+        if (button) button.setAttribute("aria-expanded", "false");
+        if (panel) panel.hidden = true;
+      });
+    }
+
+    document.querySelectorAll("[data-action-toggle]").forEach(button => {
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+        const wrap = button.closest(".action-wrap");
+        const panel = wrap ? wrap.querySelector(".action-panel") : null;
+        if (!wrap || !panel) return;
+
+        const shouldOpen = panel.hidden;
+        closeActionMenus(wrap);
+        panel.hidden = !shouldOpen;
+        wrap.classList.toggle("open", shouldOpen);
+        button.setAttribute("aria-expanded", String(shouldOpen));
+      });
+    });
+
+    document.addEventListener("click", event => {
+      if (!event.target.closest(".action-wrap")) closeActionMenus();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeActionMenus();
     });
 
     try {
